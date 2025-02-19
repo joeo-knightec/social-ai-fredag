@@ -1,0 +1,206 @@
+.container {
+  max-width: 800px;
+  /* margin: 0 auto; */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.voteResult {
+  width: 60%;
+}
+
+.voteResult > div:last-child {
+  margin-top: 12px;
+}
+
+.winners {
+  min-width: 450px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat_box {
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.stat_label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat_value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat_subtext {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.highlight {
+  color: #2563eb;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+
+.wrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+
+.numberCell {
+ text-align: center;
+}
+
+.textCell {
+  text-align: left;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #ddd;
+}
+
+.pagination button.active {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.officeRanking {
+  display: flex;
+  gap: 8px;
+}
+
+.skeletonCell {
+  background-color: #e0e0e0;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #2563eb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.table {
+  width: 100%;
+  padding: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .voteResult {
+    width: 100%;
+    height: fit-content;
+  }
+
+  .winners {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .wrapper {
+    flex-direction: column !important;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+}
+
+.officeRanking {
+  display: flex;
+  gap: 8px;
+}
+
+
+.rowsPerPage {
+  display: flex;
+  align-items: center;
+}
+
+.rowsPerPage label {
+  margin-right: 10px;
+  font-size: clamp(11px, 1.5vw, 16px);
+}
+
+.rowsPerPage select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.rowsPerPage select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+}
