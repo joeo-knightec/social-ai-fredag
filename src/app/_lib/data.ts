@@ -1,11 +1,12 @@
 import Papa from "papaparse";
+import { groupRounds, type Round } from "./insights";
 
 
 export interface SocialAIResult {
     Namn: string;
-    Röster: number;
-    Runda: number;
-    Datum: string;
+    Röster: number | "N/A" | null;
+    Runda: number | "N/A" | null;
+    Datum: string | null;
     Kontor: string;
 }
 
@@ -14,7 +15,7 @@ export interface StatisticsData {
     mostWins: { Namn: string, 'Antal vinster': number, Kontor: string };
     highestVotes: { value: number; name: string; round: number };
     officeRanking: { office: string, wins: number }[];
-    latestWinner: { name: string; votes: number; round: number };
+    latestRound: Round | null;
     highestTotalVotes: { name: string; value: number, totalRounds: number };
 }
 
@@ -50,7 +51,7 @@ export function generateStatisticsData(data: SocialAIResult[]): StatisticsData {
     const mostWins = getMostWins(data);
     const highestVotes = getHighestVotes(data);
     const officeRanking = getOfficeRanking(data);
-    const latestWinner = getLatestWinner(data);
+    const latestRound = groupRounds(data)[0] ?? null;
     const highestTotalVotes = getHighestTotalVotes(data);
 
     return {
@@ -58,24 +59,24 @@ export function generateStatisticsData(data: SocialAIResult[]): StatisticsData {
         mostWins,
         highestVotes,
         officeRanking,
-        latestWinner,
+        latestRound,
         highestTotalVotes,
     };
 }
 
 function calculateTotalVotes(data: SocialAIResult[]): number {
-    return data.reduce((acc, row) => acc + (row.Röster || 0), 0);
+    return data.reduce((acc, row) => acc + (typeof row.Röster === "number" ? row.Röster : 0), 0);
 }
 
 function getMostWins(data: SocialAIResult[]): { Namn: string, 'Antal vinster': number, Kontor: string } {
     const userWithNumberOfWins = transformSocialAiData(data);
-    return userWithNumberOfWins[0];
+    return userWithNumberOfWins[0] ?? { Namn: "", 'Antal vinster': 0, Kontor: "" };
 }
 
 function getHighestVotes(data: SocialAIResult[]): { value: number; name: string; round: number } {
     return data.reduce((acc, row) => {
-        if (row.Röster > acc.value) {
-            return { value: row.Röster, name: row.Namn, round: row.Runda };
+        if (typeof row.Röster === "number" && row.Röster > acc.value) {
+            return { value: row.Röster, name: row.Namn, round: typeof row.Runda === "number" ? row.Runda : 0 };
         }
         return acc;
     }, { value: 0, name: "", round: 0 });
@@ -96,22 +97,13 @@ function getOfficeRanking(data: SocialAIResult[]): { office: string, wins: numbe
         .sort((a, b) => b.wins - a.wins);
 }
 
-function getLatestWinner(data: SocialAIResult[]): { name: string; votes: number; round: number } {
-    const latestWinnerData = data.sort((a, b) => b.Runda - a.Runda)[0];
-    return {
-        name: latestWinnerData.Namn,
-        votes: latestWinnerData.Röster,
-        round: latestWinnerData.Runda
-    };
-}
-
 function getHighestTotalVotes(data: SocialAIResult[]): { name: string; value: number, totalRounds: number } {
     const userVotes = data.reduce((acc, row) => {
         if (row.Namn in acc) {
-            acc[row.Namn].votes += row.Röster || 0;
+            acc[row.Namn].votes += typeof row.Röster === "number" ? row.Röster : 0;
             acc[row.Namn].totalRounds += 1;
         } else {
-            acc[row.Namn] = { votes: row.Röster || 0, totalRounds: 1 };
+            acc[row.Namn] = { votes: typeof row.Röster === "number" ? row.Röster : 0, totalRounds: 1 };
         }
         return acc;
     }, {} as Record<string, { votes: number, totalRounds: number }>);

@@ -10,7 +10,7 @@ export default function Statistics({
   mostWins,
   highestVotes,
   officeRanking,
-  latestWinner,
+  latestRound,
   highestTotalVotes,
 }: StatisticsData) {
   return (
@@ -45,9 +45,12 @@ export default function Statistics({
         {/* <div className={styles.stat_subtext}>Uppnått av <span className={styles.highlight}>{lowestVotes.name}</span> i runda {lowestVotes.round}</div> */}
       </div>
       <div className={styles.stat_box}>
-        <div className={styles.stat_label}>Senaste vinnaren</div>
-        <div className={`${styles.stat_value} ${styles.highlight}`}>{latestWinner.name}</div>
-        <div className={styles.stat_subtext}>{latestWinner.votes} röster i runda {latestWinner.round}</div>
+        <div className={styles.stat_label}>Senaste rundan</div>
+        <div className={`${styles.stat_value} ${styles.highlight}`}>{latestRound?.winners.map((winner) => winner.Namn).join(", ") || "–"}</div>
+        <div className={styles.stat_subtext}>
+          {latestRound?.round != null ? `Runda ${latestRound.round}` : latestRound?.date || "Okänd runda"}
+          {latestRound?.winners.map((winner) => ` · ${winner.Namn}: ${winner.Röster ?? "N/A"} röster`).join("")}
+        </div>
       </div>
       <div className={styles.stat_box}>
         <div className={styles.stat_label}>Högst antal röster totalt</div>

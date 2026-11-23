@@ -2,6 +2,8 @@
 import styles from "./page.module.css";
 import Table from "./_components/table";
 import Stats from "./_components/statistics";
+import Insights from "./_components/insights";
+import Highlights from "./_components/highlights";
 
 import { useEffect, useState } from "react";
 import { fetchAndStoreCSV, generateStatisticsData, getSocialAiData, SocialAIResult, StatisticsData, transformSocialAiData } from "./_lib/data";
@@ -13,7 +15,7 @@ export default function Home() {
     mostWins: { Namn: "", 'Antal vinster': 0, Kontor: "" },
     highestVotes: { value: 0, name: "", round: 0 },
     officeRanking: [],
-    latestWinner: { name: "", votes: 0, round: 0 },
+    latestRound: null,
     highestTotalVotes: { name: "", value: 0, totalRounds: 0 },
   });
   const [winningTableData, setWinningTableData] = useState<{ Namn: string, 'Antal vinster': number, Kontor: string }[]>([]);
@@ -26,7 +28,8 @@ export default function Home() {
 
       const storedData = getSocialAiData();
       if (storedData) {
-        setTableData(storedData);
+        setTableData([...storedData].sort((a, b) =>
+          (typeof b.Runda === "number" ? b.Runda : 0) - (typeof a.Runda === "number" ? a.Runda : 0)));
 
         const statistics = generateStatisticsData(storedData);
         console.log(statistics);
@@ -53,6 +56,8 @@ export default function Home() {
         <h1>Vinster</h1>
         <Table data={winningTableData} paginated={true} rowsPerPage={20} />
       </div>
+      {tableData.length > 0 && <Highlights data={tableData} />}
+      {tableData.length > 0 && <Insights data={tableData} />}
     </div>
   );
 }

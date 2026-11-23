@@ -70,11 +70,284 @@
   margin: auto;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1280px;
   width: auto;
   justify-content: center;
   gap: 8px;
   min-height: 100vh;
   min-height: 100dvh;
+}
+
+.insights,
+.highlights {
+  flex: 1 1 100%;
+  max-width: 1250px;
+}
+
+.recap {
+  border-radius: 12px;
+  padding: clamp(20px, 4vw, 36px);
+  color: white;
+  background: linear-gradient(135deg, #102449, #2459b8);
+}
+
+.recap h3 {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  margin: 8px 0 0;
+}
+
+.recap p {
+  margin: 4px 0;
+  color: #dbeafe;
+}
+
+.recapKicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #bfdbfe;
+}
+
+.recapWinners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.recapWinners li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 12%);
+}
+
+.recapWinners li span {
+  color: #dbeafe;
+  font-size: 0.85rem;
+}
+
+.recapActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recapActions button {
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #102449;
+  background: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.recap .recapStatus {
+  min-height: 1.4em;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.highlightSection {
+  margin-top: 28px;
+}
+
+.highlightSection h3 {
+  margin: 0;
+}
+
+.highlightSection p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.highlightSection input,
+.highlightSection select {
+  max-width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: white;
+  font: inherit;
+}
+
+.badgeGrid,
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.badgeCard {
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.badgeCard > span {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.badgeCard ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.badgeCard li {
+  border-radius: 999px;
+  padding: 3px 9px;
+  color: #1d4ed8;
+  background: #dbeafe;
+  font-size: 0.8rem;
+}
+
+.galleryCard {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.galleryCard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.galleryCard figcaption {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+}
+
+.galleryCard figcaption span {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.insightGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+
+.insightCard,
+.timeline {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.insightCard h3,
+.timeline h3 {
+  margin: 0;
+  color: #333;
+}
+
+.insightCard p,
+.timeline p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.insightCard ol,
+.insightCard ul {
+  padding-left: 20px;
+}
+
+.insightHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.insightHeading select,
+.moreButton {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;
+  background: white;
+  font: inherit;
+}
+
+.officeBars {
+  list-style: none;
+  padding: 0 !important;
+}
+
+.officeBars li {
+  margin: 10px 0;
+}
+
+.officeBars li > div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.barTrack {
+  background: #e2e8f0;
+  border-radius: 8px;
+  height: 8px;
+}
+
+.barFill {
+  background: #2563eb;
+  border-radius: inherit;
+  height: 100%;
+}
+
+.timeline {
+  margin-top: 16px;
+}
+
+.timelineFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timelineList {
+  list-style: none;
+  padding: 0;
+}
+
+.timelineList li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.timelineDate {
+  display: flex;
+  flex-direction: column;
+  min-width: 125px;
+}
+
+.timelineDate span {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.moreButton {
+  cursor: pointer;
+  color: #2563eb;
 }
 
 
